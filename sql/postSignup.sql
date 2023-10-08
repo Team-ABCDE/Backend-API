@@ -1,0 +1,1 @@
+insert into user(user_id, user_pw, email, name, birth, phone, gender)values(?,?,?,?,?,?,?);
