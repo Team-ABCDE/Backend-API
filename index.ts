@@ -1,8 +1,8 @@
 import express, { Application } from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
-import { getDefault } from "./routes/getDefault";
 import { postSignup } from "./routes/postSignup";
+import { postSignin } from "./routes/postSignin";
 
 //.env 경로 설정
 dotenv.config();
@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 
 //라우터 코드 가져오는 부분
 app.use("/signup", postSignup);
+app.use("/signin", postSignin);
 
 //서버 실행하는 부분
 http.createServer(app).listen(process.env.PORT, () => {
