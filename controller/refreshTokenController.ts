@@ -1,9 +1,9 @@
 import { pool } from "../database/db";
-import { insertTokenModel } from "../models/refreshTokenModel";
+import { refreshTokenModel } from "../models/refreshTokenModel";
 
-export const refreshTokenController = (refreshToken: any, user_id: string) => {
+export const refreshTokenController = (refreshToken: any) => {
   return pool
-    .query(insertTokenModel, [refreshToken, user_id])
+    .query(refreshTokenModel, [refreshToken, refreshToken])
     .then(() => {
       return true;
     })
