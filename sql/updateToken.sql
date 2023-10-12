@@ -1,1 +1,1 @@
-update user set refresh_token=? where user_id=?;
+update user set refresh_token=? where refresh_token=?;

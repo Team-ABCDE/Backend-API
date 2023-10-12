@@ -8,6 +8,7 @@ import { idRegex, pwRegex } from "../common/util/regex";
 import { userDto } from "../interface/userDto";
 import { createToken } from "../common/util/createToken";
 import { refreshTokenController } from "./refreshTokenController";
+import { insertTokenController } from "./insertTokenController";
 
 //.env 경로 설정
 dotenv.config();
@@ -33,25 +34,32 @@ export const signinController = async (req: Request, res: Response) => {
                 "refresh",
                 value[0][0].user_id
               );
-              //refresh 토큰 db 저장
-              let insertResult = await refreshTokenController(
-                refreshToken,
-                value[0][0].user_id
-              );
-              if (insertResult) {
-                //응답쿠키에 넣어서 보냄
-                await res.cookie("accessToken", accessToken, {
-                  expires: new Date(Date.now() + 1800000),
-                });
-                await res.cookie("refreshToken", refreshToken, {
-                  expires: new Date(Date.now() + 3600000),
-                });
 
-                return res
-                  .status(200)
-                  .json({ msg: "로그인 완료되었습니다.", res: res });
+              if (req.headers.cookie == undefined) {
+                //refresh 토큰 db 저장
+                let insertResult = await insertTokenController(
+                  refreshToken,
+                  value[0][0].user_id
+                );
+                if (insertResult) {
+                  //응답쿠키에 넣어서 보냄
+                  await res.cookie("accessToken", accessToken, {
+                    maxAge: 1800000,
+                  });
+                  await res.cookie("refreshToken", refreshToken, {
+                    maxAge: 3600000,
+                  });
+
+                  return res.status(200).json({
+                    msg: "로그인 완료되었습니다.",
+                    user: value[0][0].refresh_token !== null ? true : false,
+                  });
+                } else {
+                  console.log("refresh token insert problem");
+                  res.status(404).json({ msg: "잘못된 접근입니다." });
+                }
               } else {
-                console.log("refresh token insert problem");
+                console.log("already login user");
                 res.status(404).json({ msg: "잘못된 접근입니다." });
               }
             })
