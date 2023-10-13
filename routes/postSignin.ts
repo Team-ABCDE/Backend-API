@@ -1,5 +1,4 @@
-import express, { Router, Request, Response } from "express";
-import { pool } from "../database/db";
+import express, { Router } from "express";
 import { signinController } from "../controller/signinController";
 
 const router: Router = express.Router();
