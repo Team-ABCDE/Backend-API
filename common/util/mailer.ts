@@ -17,6 +17,7 @@ export const mailer = async (name: string, email: string) => {
   const mailOption = {
     from: "Countryside",
     to: email,
+    subject: "Countryside 아이디 찾기 결과 입니다",
     html: `You got a message from <br /> 
       ${name} 님, 찾으시는 이메일은 <br/>
       ${email} 입니다.<br/>
