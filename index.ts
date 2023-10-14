@@ -8,6 +8,8 @@ import { postSignin } from "./routes/postSignin";
 import { postSignout } from "./routes/postSignout";
 import { checkAuth } from "./routes/checkAuth";
 import { postMail } from "./routes/postMail";
+import { postCheckNum } from "./routes/postCheckNum";
+import { postChangePw } from "./routes/postChangePw";
 
 //.env 경로 설정
 dotenv.config();
@@ -31,6 +33,8 @@ app.use("/signup", postSignup);
 app.use("/signin", postSignin);
 app.use("/signout", postSignout);
 app.use("/mail", postMail);
+app.use("/check-num", postCheckNum);
+app.use("/change-pw", postChangePw);
 app.use("/auth", checkAuth);
 
 //서버 실행하는 부분

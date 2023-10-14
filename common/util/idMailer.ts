@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-export const mailer = async (name: string, email: string) => {
+export const idMailer = async (name: string, email: string) => {
   console.log("user => ", process.env.GMAIL_ADDRESS);
   console.log("pw => ", process.env.GMAIL_PASSWORD);
   const transporter = await nodemailer.createTransport({
